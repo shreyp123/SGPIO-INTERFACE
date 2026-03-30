@@ -13,9 +13,7 @@ module sgpio_initiator(
     input  SDI
 );
 
-// 4 drives x 3 bits = 12 bits per frame
-// frame = 12 data + 1 end marker + 4 vendor = 17 clocks total
-// SCLK half period = 250 sys_clk cycles => 100kHz at 50MHz
+
 
 parameter HALF = 250;
 
@@ -57,7 +55,7 @@ begin
                 hcnt <= 0;
                 SCLK <= ~SCLK;
 
-                // falling edge - latch SDI and update pointers
+                
                 if(SCLK == 1) begin
                     if(pos < 12)
                         rx_buf[pos] <= SDI;
@@ -74,7 +72,7 @@ begin
                         pos <= pos + 1;
                 end
 
-                // rising edge - drive SDO and SLOAD
+                
                 else begin
                     if(pos < 12) begin
                         SLOAD <= 0;
