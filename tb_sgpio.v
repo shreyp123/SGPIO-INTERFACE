@@ -31,9 +31,7 @@ always #10 clk = ~clk;
 
 defparam DUT.HALF = 5;
 
-// simulated backplane target
-// drive0=present, drive1=not present, drive2=present, drive3=present
-// so SDI pattern = 000_000_001_000
+
 reg sclk_prev;
 reg [4:0] tcnt;
 reg synced;
@@ -50,7 +48,7 @@ end
 always @(posedge clk) begin
     sclk_prev <= SCLK;
 
-    // detect rising edge of SCLK
+    
     if(SCLK && !sclk_prev) begin
         if(SLOAD) begin
             synced <= 1;
@@ -85,32 +83,32 @@ initial begin
     rst_n = 1;
     #30;
 
-    // test1: all LEDs off
+    
     en     = 1;
     tx_led = 12'b000_000_000_000;
     #5100;
 
-    // test2: drive0 activity ON
+    
     tx_led = 12'b000_000_000_001;
     #3400;
 
-    // test3: drive1 locate ON
+    
     tx_led = 12'b000_000_010_000;
     #3400;
 
-    // test4: drive2 error ON
+    
     tx_led = 12'b000_100_000_000;
     #3400;
 
-    // test5: drive3 all indicators ON
+    
     tx_led = 12'b111_000_000_000;
     #3400;
 
-    // test6: mixed pattern
+    
     tx_led = 12'b111_100_010_001;
     #5100;
 
-    // test7: disable and check tristate
+   
     en = 0;
     #3400;
 
@@ -119,7 +117,7 @@ initial begin
     else
         $display("FAIL - bus not tristated, SCLK=%b SLOAD=%b SDO=%b", SCLK, SLOAD, SDO);
 
-    // test8: re-enable all on
+    
     en     = 1;
     tx_led = 12'b111_111_111_111;
     #5100;
