@@ -1,6 +1,6 @@
 # SGPIO-INTERFACE
 
-1. Introduction
+1. Introduction:
 SGPIO stands for Serial General Purpose Input Output. It is a serial bus protocol defined in the
 SFF-8485 specification and is used in storage systems to communicate between a host controller
 (initiator) and a backplane (target) that holds disk drives.
